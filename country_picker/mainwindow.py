@@ -7,8 +7,6 @@ from PyQt6.QtWidgets import (
     QWidget,
 )
 from country_picker.async_api_fetcher import ApiLoaderThread
-from country_picker.parsers import parse_country_data
-
 class MainWindow(QMainWindow):
     """Main window for the Expert Country Picker application."""
 
@@ -24,7 +22,7 @@ class MainWindow(QMainWindow):
 
         # Create empty dropdown and label
         self.combo = QComboBox()
-        self.label = QLabel("Select a country")
+        self.label = QLabel("Select a country:")
 
         # Add to layout
         layout = QVBoxLayout()
@@ -44,7 +42,10 @@ class MainWindow(QMainWindow):
 
     def on_countries_loaded(self, countries: list[str]) -> None:
         """Handle the loaded countries and populate the QComboBox."""
+        self.combo.blockSignals(True)       
         self.combo.addItems(countries)
+        self.combo.setCurrentIndex(-1)      # resets selection 
+        self.combo.blockSignals(False)  
 
     def on_country_selected(self, country_name):
         """Handle the selection of a country from the QComboBox."""
