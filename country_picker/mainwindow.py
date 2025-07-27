@@ -5,6 +5,9 @@ from PyQt6.QtWidgets import (
     QVBoxLayout,
     QWidget,
 )
+import requests
+
+URL = "https://www.apicountries.com/countries"
 
 class MainWindow(QMainWindow):
     """Main window for the Expert Country Picker application."""
@@ -26,3 +29,16 @@ class MainWindow(QMainWindow):
         container = QWidget()
         container.setLayout(layout)
         self.setCentralWidget(container)
+
+        self.fetch_data_and_fill_qcombobox()
+
+    def fetch_data_and_fill_qcombobox(self):
+        """Fetch country data from the API and populate the QComboBox."""
+        try:
+            response = requests.get(URL)
+            response.raise_for_status()
+            countries = response.json()
+            sorted_country_names = sorted(country["name"] for country in countries)
+            self.combo.addItems(sorted_country_names)
+        except Exception as e:
+            self.label.setText(f"Failed to load countries: {e}")
