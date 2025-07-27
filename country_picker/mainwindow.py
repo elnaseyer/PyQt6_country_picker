@@ -1,3 +1,4 @@
+from typing import Optional
 from PyQt6.QtWidgets import (
     QComboBox,
     QLabel,
@@ -12,7 +13,7 @@ from country_picker.parsers import parse_country_data
 class MainWindow(QMainWindow):
     """Main window for the Expert Country Picker application."""
 
-    def __init__(self):
+    def __init__(self, preselect_country: Optional[str] = None) -> None:
         super().__init__()
         self.fetch_data()
         self.setWindowTitle("Expert Country Picker")
