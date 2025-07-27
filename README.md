@@ -1,6 +1,40 @@
 # **PyQt6_country_picker**
 Simple country picker GUI app built with PyQt6 for recruitment exercise.
 
+### Features
+
+* Fetches country data live from [apicountries.com](https://www.apicountries.com/countries)
+* Populates a combo box with country names sorted alphabetically
+* Updates the label to show the currently selected country
+* Loads data in a background thread to keep the UI responsive
+* Supports an optional command-line argument to pre-select a country
+
+### Usage
+
+To run the app, use:
+
+```bash
+python -m country_picker
+```
+
+Optionally, you can pre-select a country on startup:
+
+```bash
+python -m country_picker --select Aruba
+```
+
+### Testing
+
+To run test, use:
+
+```bash
+pytest
+```
+
+### Dependencies
+
+Can be found in requrement.txt 
+
 ## Instructions
 
 This exercise is meant to not require more than a few hours of your time. It is ok to come with an incomplete implementation if you get stuck, as long as it provides good foundation for discussion in a potential subsequent interview.
