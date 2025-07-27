@@ -31,6 +31,7 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(container)
 
         self.fetch_data_and_fill_qcombobox()
+        self.combo.currentTextChanged.connect(self.on_country_selected)
 
     def fetch_data_and_fill_qcombobox(self):
         """Fetch country data from the API and populate the QComboBox."""
@@ -42,3 +43,7 @@ class MainWindow(QMainWindow):
             self.combo.addItems(sorted_country_names)
         except Exception as e:
             self.label.setText(f"Failed to load countries: {e}")
+
+    def on_country_selected(self, country_name):
+        """Handle the selection of a country from the QComboBox."""
+        self.label.setText(f"You selected: {country_name}")
