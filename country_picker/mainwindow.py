@@ -6,7 +6,6 @@ from PyQt6.QtWidgets import (
     QVBoxLayout,
     QWidget,
 )
-import requests
 from country_picker.async_api_fetcher import ApiLoaderThread
 from country_picker.parsers import parse_country_data
 
@@ -16,6 +15,10 @@ class MainWindow(QMainWindow):
     def __init__(self, preselect_country: Optional[str] = None) -> None:
         super().__init__()
         self.fetch_data()
+        self.setupUi()
+        self.combo.currentTextChanged.connect(self.on_country_selected)
+
+    def setupUi(self):
         self.setWindowTitle("Expert Country Picker")
         self.resize(300, 100)
 
@@ -31,9 +34,6 @@ class MainWindow(QMainWindow):
         container = QWidget()
         container.setLayout(layout)
         self.setCentralWidget(container)
-
-        self.combo.currentTextChanged.connect(self.on_country_selected)
-
 
     def fetch_data(self) -> None:
         """Fetch country data from the API and populate the QComboBox."""
