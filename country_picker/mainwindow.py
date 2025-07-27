@@ -6,6 +6,7 @@ from PyQt6.QtWidgets import (
     QWidget,
 )
 import requests
+from country_picker.parsecountrydata import parse_country_data
 
 URL = "https://www.apicountries.com/countries"
 
@@ -38,12 +39,10 @@ class MainWindow(QMainWindow):
         try:
             response = requests.get(URL)
             response.raise_for_status()
-            countries = response.json()
-            sorted_country_names = sorted(country["name"] for country in countries)
-            self.combo.addItems(sorted_country_names)
+            self.combo.addItems(parse_country_data(response.json()))
         except Exception as e:
             self.label.setText(f"Failed to load countries: {e}")
 
     def on_country_selected(self, country_name):
         """Handle the selection of a country from the QComboBox."""
-        self.label.setText(f"You selected: {country_name}")
+        self.label.setText(f"You selected: {country_name}")    
